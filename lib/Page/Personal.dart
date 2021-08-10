@@ -1,8 +1,11 @@
 import 'package:dkatalis_test/Components/Button.dart';
 import 'package:dkatalis_test/Components/PageIndicator.dart';
 import 'package:dkatalis_test/Helper/Constants.dart';
+import 'package:dkatalis_test/Helper/Helper.dart';
 import 'package:dkatalis_test/Helper/Wgt.dart';
 import 'package:flutter/material.dart';
+
+import 'VideoCall.dart';
 
 class Personal extends StatefulWidget {
   @override
@@ -121,5 +124,6 @@ class _PersonalState extends State<Personal> {
   }
 
   void nextPage() {
+    Helper.navigate(context, VideoCall());
   }
 }

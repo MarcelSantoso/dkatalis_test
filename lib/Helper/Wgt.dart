@@ -8,6 +8,7 @@ class Wgt {
       title: Text("$title"),
       centerTitle: false,
       backgroundColor: colorPrimary,
+      brightness: Brightness.dark,
       shadowColor: Colors.transparent,
     );
   }
