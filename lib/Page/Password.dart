@@ -51,41 +51,42 @@ class _PasswordState extends State<Password> {
   }
 
   Widget body() {
-    return CustomScrollView(slivers: [
-      SliverFillRemaining(
-          child: Container(
-              padding: EdgeInsets.all(padding),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PageIndicator(activePos: 1),
-                    SizedBox(height: padding),
-                    Text("Create Password", style: textWhiteLarge),
-                    SizedBox(height: padding_xs),
-                    Text("Password will be used to login to account",
-                        style: textWhite),
-                    SizedBox(height: padding),
-                    inputPassword(),
-                    SizedBox(height: padding * 2),
-                    Row(children: [
-                      Text("Complexity: ", style: textWhite),
-                      complexityText()
-                    ]),
-                    SizedBox(height: padding),
-                    complexity(),
-                    Spacer(),
-                    SizedBox(height: padding),
-                    SizedBox(
-                        width: double.infinity,
-                        child: Button(
-                          text: "Next",
-                          handler: enableNext ? () => nextPage() : null,
-                          backgroundColor: colorLight,
-                          textColor: colorPrimary,
-                        )),
-                    SizedBox(height: padding),
-                  ])))
-    ]);
+    return SingleChildScrollView(
+        child: Container(
+            height: Helper.getHeight(context),
+            padding: EdgeInsets.all(padding),
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PageIndicator(activePos: 1),
+                  SizedBox(height: padding),
+                  Text("Create Password", style: textWhiteLarge),
+                  SizedBox(height: padding_xs),
+                  Text("Password will be used to login to account",
+                      style: textWhite),
+                  SizedBox(height: padding),
+                  inputPassword(),
+                  SizedBox(height: padding * 2),
+                  Row(children: [
+                    Text("Complexity: ", style: textWhite),
+                    complexityText()
+                  ]),
+                  SizedBox(height: padding),
+                  complexity(),
+                  Spacer(),
+                  // Expanded(child: Container()),
+                  SizedBox(height: padding),
+                  SizedBox(
+                      width: double.infinity,
+                      child: Button(
+                        text: "Next",
+                        handler: enableNext ? () => nextPage() : null,
+                        backgroundColor: colorLight,
+                        textColor: colorPrimary,
+                      )),
+                  SizedBox(height: padding),
+                ])));
   }
 
   Widget inputPassword() {

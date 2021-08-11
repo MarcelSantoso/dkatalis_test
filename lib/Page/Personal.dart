@@ -55,67 +55,66 @@ class _PersonalState extends State<Personal> {
   Widget body() {
     enabledNext =
         selectedGoal != "" && selectedIncome != "" && selectedExpense != "";
-    return CustomScrollView(slivers: [
-      SliverFillRemaining(
-          child: Container(
-        padding: EdgeInsets.all(padding),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(height: padding),
-          PageIndicator(activePos: 2),
-          SizedBox(height: padding * 2),
-          Text(
-            "Personal Information",
-            style: textWhiteLarge,
+    return SingleChildScrollView(
+        child: Container(
+      height: Helper.getHeight(context),
+      padding: EdgeInsets.all(padding),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        SizedBox(height: padding),
+        PageIndicator(activePos: 2),
+        SizedBox(height: padding * 2),
+        Text(
+          "Personal Information",
+          style: textWhiteLarge,
+        ),
+        SizedBox(height: padding_xs),
+        Text(
+          "Please fill in the information below and your goal for digital saving.",
+          style: textWhite,
+        ),
+        SizedBox(height: padding),
+        dropdown(
+            title: "Goal for activation",
+            data: dataGoal,
+            selected: selectedGoal,
+            handler: (selected) {
+              setState(() {
+                selectedGoal = selected;
+              });
+            }),
+        SizedBox(height: padding),
+        dropdown(
+            title: "Monthly income",
+            data: dataIncome,
+            selected: selectedIncome,
+            handler: (selected) {
+              setState(() {
+                selectedIncome = selected;
+              });
+            }),
+        SizedBox(height: padding),
+        dropdown(
+            title: "Monthly expense",
+            data: dataExpense,
+            selected: selectedExpense,
+            handler: (selected) {
+              setState(() {
+                selectedExpense = selected;
+              });
+            }),
+        Spacer(),
+        SizedBox(
+          width: double.infinity,
+          child: Button(
+            text: "Next",
+            backgroundColor: Colors.white,
+            textColor: colorPrimary,
+            handler: enabledNext ? () => nextPage() : null,
           ),
-          SizedBox(height: padding_xs),
-          Text(
-            "Please fill in the information below and your goal for digital saving.",
-            style: textWhite,
-          ),
-          SizedBox(height: padding),
-          dropdown(
-              title: "Goal for activation",
-              data: dataGoal,
-              selected: selectedGoal,
-              handler: (selected) {
-                setState(() {
-                  selectedGoal = selected;
-                });
-              }),
-          SizedBox(height: padding),
-          dropdown(
-              title: "Monthly income",
-              data: dataIncome,
-              selected: selectedIncome,
-              handler: (selected) {
-                setState(() {
-                  selectedIncome = selected;
-                });
-              }),
-          SizedBox(height: padding),
-          dropdown(
-              title: "Monthly expense",
-              data: dataExpense,
-              selected: selectedExpense,
-              handler: (selected) {
-                setState(() {
-                  selectedExpense = selected;
-                });
-              }),
-          Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: Button(
-              text: "Next",
-              backgroundColor: Colors.white,
-              textColor: colorPrimary,
-              handler: enabledNext ? () => nextPage() : null,
-            ),
-          ),
-          SizedBox(height: padding),
-        ]),
-      ))
-    ]);
+        ),
+        SizedBox(height: padding),
+      ]),
+    ));
   }
 
   Container dropdown({title, List<String>? data, selected = "", handler}) {

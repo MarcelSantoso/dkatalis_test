@@ -9,6 +9,8 @@ import 'Password.dart';
 
 class Home extends StatefulWidget {
   Data? model;
+  Home({this.model});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -26,7 +28,7 @@ class _HomeState extends State<Home> {
     } else {
       controllerEmail.text = widget.model?.email ?? "";
     }
-    
+
     controllerEmail.addListener(() {
       setState(() {
         enableNext = Helper.validateEmail(email: controllerEmail.text);
@@ -44,60 +46,63 @@ class _HomeState extends State<Home> {
         color: colorPrimary,
       ),
       Image.asset("assets/background.png"),
-      Container(
-          child: CustomScrollView(slivers: [
-        SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(children: <Widget>[
-              SizedBox(height: space_header),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: padding),
-                child: PageIndicator(),
-              ),
-              SizedBox(height: padding),
-              Image.asset("assets/background_overlay.png"),
-              Expanded(
-                  child: Container(
-                      color: colorBg,
-                      padding: EdgeInsets.symmetric(horizontal: padding),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                                text: TextSpan(
-                                    style: textWelcome,
-                                    children: <TextSpan>[
-                                  TextSpan(text: 'Welcome to\nGIN '),
-                                  TextSpan(
-                                      text: 'Finans', style: textWelcomeAccent),
-                                ])),
-                            SizedBox(height: padding),
-                            Text(
-                              'Welcome to The Bank of The Future.\nManage and track your accounts on the go.',
-                              style: textIntro,
-                            ),
-                            SizedBox(height: padding),
-                            Card(
-                                elevation: 5,
-                                shadowColor: Colors.grey[200],
-                                child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: padding,
-                                        vertical: padding_xs),
-                                    child: textField())),
-                            SizedBox(height: padding),
-                            Spacer(),
-                            SizedBox(
-                                width: double.infinity,
-                                child: Button(
-                                  text: "Next",
-                                  handler: enableNext ? () => nextPage() : null,
-                                )),
-                            SizedBox(height: padding * 2),
-                          ]))),
-            ]))
-      ]))
+      body(),
     ]));
+  }
+
+  Widget body() {
+    return SingleChildScrollView(
+      child: Container(
+        height: Helper.getHeight(context, noAppbar: true),
+        child: Column(children: <Widget>[
+          SizedBox(height: space_header),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: padding),
+            child: PageIndicator(),
+          ),
+          SizedBox(height: padding),
+          Image.asset("assets/background_overlay.png"),
+          Expanded(
+              child: Container(
+                  color: colorBg,
+                  padding: EdgeInsets.symmetric(horizontal: padding),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                            text: TextSpan(
+                                style: textWelcome,
+                                children: <TextSpan>[
+                              TextSpan(text: 'Welcome to\nGIN '),
+                              TextSpan(
+                                  text: 'Finans', style: textWelcomeAccent),
+                            ])),
+                        SizedBox(height: padding),
+                        Text(
+                          'Welcome to The Bank of The Future.\nManage and track your accounts on the go.',
+                          style: textIntro,
+                        ),
+                        SizedBox(height: padding),
+                        Card(
+                            elevation: 5,
+                            shadowColor: Colors.grey[200],
+                            child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: padding, vertical: padding_xs),
+                                child: textField())),
+                        SizedBox(height: padding),
+                        Spacer(),
+                        SizedBox(
+                            width: double.infinity,
+                            child: Button(
+                              text: "Next",
+                              handler: enableNext ? () => nextPage() : null,
+                            )),
+                        SizedBox(height: padding * 2),
+                      ]))),
+        ]),
+      ),
+    );
   }
 
   Widget textField() {
@@ -114,7 +119,6 @@ class _HomeState extends State<Home> {
 
   void nextPage() {
     widget.model?.email = controllerEmail.text;
-    print(widget.model?.parseAsJson());
     Helper.navigate(context, Password(model: widget.model));
   }
 }

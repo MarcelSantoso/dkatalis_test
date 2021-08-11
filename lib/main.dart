@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'Model/Data.dart';
 import 'Page/Home.dart';
 
+Data model = Data();
 void main() {
   runApp(MyApp());
 }
@@ -13,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,    
+        primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: Home(model: model),
     );
   }
 }
