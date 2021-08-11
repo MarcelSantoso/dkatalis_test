@@ -3,12 +3,14 @@ import 'package:dkatalis_test/Components/PageIndicator.dart';
 import 'package:dkatalis_test/Helper/Constants.dart';
 import 'package:dkatalis_test/Helper/Helper.dart';
 import 'package:dkatalis_test/Helper/Wgt.dart';
+import 'package:dkatalis_test/Model/Data.dart';
 import 'package:flutter/material.dart';
 
 import 'Personal.dart';
 
 class Password extends StatefulWidget {
-  Password({Key? key}) : super(key: key);
+  Data? model;
+  Password({this.model});
 
   @override
   _PasswordState createState() => _PasswordState();
@@ -36,6 +38,7 @@ class _PasswordState extends State<Password> {
         isLength = checkLength(text);
       });
     });
+    controllerPassword.text = widget.model?.password ?? "";
   }
 
   @override
@@ -230,6 +233,7 @@ class _PasswordState extends State<Password> {
   }
 
   void nextPage() {
-    Helper.navigate(context, Personal());
+    widget.model?.password = controllerPassword.text;
+    Helper.navigate(context, Personal(model: widget.model));
   }
 }

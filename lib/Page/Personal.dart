@@ -3,24 +3,45 @@ import 'package:dkatalis_test/Components/PageIndicator.dart';
 import 'package:dkatalis_test/Helper/Constants.dart';
 import 'package:dkatalis_test/Helper/Helper.dart';
 import 'package:dkatalis_test/Helper/Wgt.dart';
+import 'package:dkatalis_test/Model/Data.dart';
 import 'package:flutter/material.dart';
 
 import 'VideoCall.dart';
 
 class Personal extends StatefulWidget {
+  Data? model;
+  Personal({this.model});
   @override
   _PersonalState createState() => _PersonalState();
 }
 
 class _PersonalState extends State<Personal> {
   List<String> dataGoal = ['Savings', 'Retirement funds', 'House', 'New phone'];
-  List<String> dataIncome = ['Less than Rp. 10.000.000', 'Rp. 10.000.000 - Rp. 20.000.000', 'Rp. 20.000.000 - Rp. 50.000.000', 'More than Rp. 50.000.000'];
-  List<String> dataExpense = ['Less than Rp. 5.000.000', 'Rp. 5.000.000 - Rp. 10.000.000', 'Rp. 10.000.000 - Rp. 20.000.000', 'More than Rp. 20.000.000'];
+  List<String> dataIncome = [
+    'Less than Rp. 10.000.000',
+    'Rp. 10.000.000 - Rp. 20.000.000',
+    'Rp. 20.000.000 - Rp. 50.000.000',
+    'More than Rp. 50.000.000'
+  ];
+  List<String> dataExpense = [
+    'Less than Rp. 5.000.000',
+    'Rp. 5.000.000 - Rp. 10.000.000',
+    'Rp. 10.000.000 - Rp. 20.000.000',
+    'More than Rp. 20.000.000'
+  ];
 
   String selectedGoal = "";
   String selectedIncome = "";
   String selectedExpense = "";
   bool enabledNext = false;
+  @override
+  void initState() {
+    super.initState();
+
+    selectedGoal = widget.model?.goalActivation ?? "";
+    selectedIncome = widget.model?.goalIncome ?? "";
+    selectedExpense = widget.model?.goalExpense ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +145,9 @@ class _PersonalState extends State<Personal> {
   }
 
   void nextPage() {
-    Helper.navigate(context, VideoCall());
+    widget.model?.goalActivation = selectedGoal;
+    widget.model?.goalExpense = selectedExpense;
+    widget.model?.goalIncome = selectedIncome;
+    Helper.navigate(context, VideoCall(model: widget.model));
   }
 }

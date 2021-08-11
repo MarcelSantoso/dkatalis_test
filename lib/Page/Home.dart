@@ -2,11 +2,13 @@ import 'package:dkatalis_test/Components/Button.dart';
 import 'package:dkatalis_test/Components/PageIndicator.dart';
 import 'package:dkatalis_test/Helper/Constants.dart';
 import 'package:dkatalis_test/Helper/Helper.dart';
+import 'package:dkatalis_test/Model/Data.dart';
 import 'package:flutter/material.dart';
 
 import 'Password.dart';
 
 class Home extends StatefulWidget {
+  Data? model;
   @override
   _HomeState createState() => _HomeState();
 }
@@ -18,6 +20,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+
+    if (widget.model == null) {
+      widget.model = Data();
+    } else {
+      controllerEmail.text = widget.model?.email ?? "";
+    }
+    
     controllerEmail.addListener(() {
       setState(() {
         enableNext = Helper.validateEmail(email: controllerEmail.text);
@@ -30,7 +39,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         body: Stack(children: [
       Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.5,
         width: MediaQuery.of(context).size.width,
         color: colorPrimary,
       ),
@@ -104,6 +113,8 @@ class _HomeState extends State<Home> {
   }
 
   void nextPage() {
-    Helper.navigate(context, Password());
+    widget.model?.email = controllerEmail.text;
+    print(widget.model?.parseAsJson());
+    Helper.navigate(context, Password(model: widget.model));
   }
 }
